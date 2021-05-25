@@ -12,9 +12,9 @@ Sai Kumar Reddy
 
 ### Project Links:
 
-1. **Code:** [Jupyter Notebook](https://github.com/Thomas-George-T/A-Tale-of-Two-Cities/blob/master/Tale_of_Two_Cities_A_Data_Science_Take.ipynb)
+1. **Code:** [Jupyter Notebook](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/Tale_of_Two_Cities_A_Data_Science_Take.ipynb)
 2. **Blog Post:** [Medium Article](https://lovelyguysai.medium.com/a-tale-of-two-cities-f2f36402d89)
-3. **Report:** [Report](https://github.com/Thomas-George-T/A-Tale-of-Two-Cities/blob/master/DS_Report.ipynb)
+3. **Report:** [Report](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/DS_Report.ipynb)
 
 # Introduction
 A Tale of Two cities, a novel written by Charles Dickens was set in London and Paris which takes place during the French Revolution. These cities were both happening then and now. A lot has changed over the years and we now take a look at how the cities have grown.
@@ -132,7 +132,7 @@ wiki_london_data
 
 The data looks like this:
 
-![wiki_london_data.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/wiki_london_data.jpg)
+![wiki_london_data.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/wiki_london_data.jpg)
 
 To collect data for Paris, we download the JSON file containing all the postal codes of France from https://www.data.gouv.fr/fr/datasets/r/e88c6fda-1d09-42a0-a069-606d3259114e
 
@@ -145,7 +145,7 @@ paris_raw = pd.read_json('france-data.json')
 paris_raw.head()
 ```
 
-![paris_raw.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/paris_raw.jpg)
+![paris_raw.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/paris_raw.jpg)
 
 ## Data Preprocessing
 
@@ -218,7 +218,7 @@ london_merged.columns= ['borough','town','post_code','latitude','longitude']
 london_merged
 ```
 
-![london_feature_engineered.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/london_feature_engineered.jpg)
+![london_feature_engineered.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/london_feature_engineered.jpg)
 
 As for our Paris dataset, we don't need to get the geo coordinates using an external data source or collect it with the ArcGIS API call since we already have it stored in the geo_point_2d column as a tuple in the df_paris dataframe.
 
@@ -245,7 +245,7 @@ paris_combined_data = pd.concat([df_paris.drop('geo_point_2d', axis=1), paris_ge
 paris_combined_data
 ```
 
-![paris_feature_engineered.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/paris_feature_engineered.jpg)
+![paris_feature_engineered.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/paris_feature_engineered.jpg)
 
 *Note: Both the datasets have been properly processed and formatted. Since the same steps are applied to both the datasets of London and Paris, we will be discussing the code for only the London dataset for simplicity.*
 
@@ -255,11 +255,11 @@ Now that our datasets are ready, using the Folium package, we can visualize the 
 
 Neighbourhood map of London:
 
-![London.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/London.jpg)
+![London.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/London.jpg)
 
 Neighbourhood map of Paris:
 
-![Paris.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/Paris.jpg)
+![Paris.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/Paris.jpg)
 
 Now that we have visualized the neighbourhoods, we need to find out what each neighbourhood is like and what are the common venue and venue categories within a 500m radius.
 
@@ -308,7 +308,7 @@ def getNearbyVenues(names, latitudes, longitudes, radius=500):
 
 Resulting data looks like:
 
-![venues.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/venues.jpg)
+![venues.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/venues.jpg)
 
 ## One Hot Encoding
 Since we are trying to find out what are the different kinds of venue categories present in each neighbourhood and then calculate the top 10 common venues to base our similarity on, we use the One Hot Encoding to work with our categorical datatype of the venue categories. This helps to convert the categorical data into numeric data.
@@ -332,7 +332,7 @@ London_venue_cat = London_venue_cat[fixed_columns]
 London_grouped = London_venue_cat.groupby('Neighbourhood').mean().reset_index()
 ```
 
-![one_hot_encoding.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/one_hot_encoding.jpg)
+![one_hot_encoding.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/one_hot_encoding.jpg)
 
 ## Top Venues in the Neighbourhoods
 In our next step, We need to rank and label the top venue categories in our neighbourhood.
@@ -378,7 +378,7 @@ for ind in np.arange(London_grouped.shape[0]):
 neighborhoods_venues_sorted_london.head()
 ```
 
-![top_10_categories.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/top_10_categories.jpg)
+![top_10_categories.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/top_10_categories.jpg)
 
 # Model Building - KMeans
 Moving on to the most exciting part - Model Building! We will be using KMeans Clustering Machine learning algorithm to cluster similar neighbourhoods together. We will be going with the number of clusters as 5.
@@ -409,7 +409,7 @@ london_data = london_data.join(neighborhoods_venues_sorted_london.set_index('Nei
 london_data.head()
 ```
 
-![k-means-labelled.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/k-means-labelled.jpg)
+![k-means-labelled.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/k-means-labelled.jpg)
 
 ## Visualizing the clustered Neighbourhoods
 Our data is processed, missing data is collected and compiled. The Model is built. All that's remaining is to see the clustered neighbourhoods on the map. Again, we use `Folium` package to do so.
@@ -422,11 +422,11 @@ london_data_nonan = london_data.dropna(subset=['Cluster Labels'])
 
 Map of clustered neighbourhoods of London:
 
-![London_clustered.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/London_clustered.jpg)
+![London_clustered.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/London_clustered.jpg)
 
 Map of clustered neighbourhoods of Paris
 
-![Paris_clustered.jpg](https://raw.githubusercontent.com/Thomas-George-T/A-Tale-of-Two-Cities/master/assets/Paris_clustered.jpg)
+![Paris_clustered.jpg](https://github.com/saikumarpochireddygari/Tale-of-Two-Cities/blob/main/assets/Paris_clustered.jpg)
 
 ## Examining our Clusters
 
